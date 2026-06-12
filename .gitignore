@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.env
+**/data/naver_cookies.pkl
+**/data/*.csv
+**/data/*.json
+**/data/*.xlsx
+**/data/*.md
