@@ -35,5 +35,11 @@ class Settings(BaseSettings):
             f"%26search.menuid={self.menu_id}%26search.page={{page}}"
         )
 
+    @property
+    def menu_list_url(self) -> str:
+        return (
+            f"https://cafe.naver.com/{self.cafe_name}/"
+        )
+
 
 settings = Settings()

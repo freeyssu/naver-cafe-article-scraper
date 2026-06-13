@@ -23,9 +23,15 @@
 - Cookies persisted to `data/naver_cookies.pkl`
 - Session expiry mid-scrape triggers automatic manual re-login via browser
 - Threading via `threading.Thread`; each thread creates its own `requests.Session`
-- `--start-page N --pages M` for page range (e.g., `--start-page 1 --pages 10`)
+- Cafe ID auto-resolved from cafe name (no `--cafe-id` flag needed)
+- `--start-page N --max-pages M` for page range (e.g., `--start-page 1 --max-pages 10`)
 - Session expiry detection via login page HTML indicators
 - tqdm progress bar is thread-safe for page-level tracking
+
+## CLI commands (subparsers)
+- `login` — manual browser login + save cookies
+- `list-menus --cafe CAFE` — list all menus with name, ID, article count
+- `scrape [--cafe CAFE] [--menu-id ID] [--start-page N] [--max-pages N] [--min-delay N] [--max-delay N] [--format FMT] [--threads N]` — scrape articles
 
 ## Testing
 ```bash

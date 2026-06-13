@@ -99,10 +99,6 @@ def _is_login_page(soup: BeautifulSoup) -> bool:
     if title_tag and "로그인" in title_tag.get_text():
         return True
 
-    body = soup.find("body")
-    if body and "로그인" in body.get_text(strip=True):
-        return True
-
     return False
 
 

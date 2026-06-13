@@ -11,8 +11,7 @@ from scraper.article_reader import fetch_article
 from scraper.article_parser import Article
 from storage.writer import save_articles
 from utils.helpers import random_delay
-from utils.browser import create_driver
-from auth.naver_login import NaverAuth
+from auth.manual_login import manual_login
 
 _stop_event = threading.Event()
 _login_lock = threading.Lock()
@@ -89,12 +88,7 @@ def _manual_login() -> bool:
         return settings.cookie_path.exists()
 
     try:
-        driver = create_driver()
-        auth = NaverAuth(driver)
-        try:
-            return auth.login(force_manual=True)
-        finally:
-            driver.quit()
+        return manual_login()
     finally:
         _login_lock.release()
 
@@ -204,6 +198,7 @@ def collect_articles(
         if retries < 2:
             tqdm.write("\nSession expired. Re-logging in...")
             _manual_login()
+            # recreate session after re-login
             tqdm.write("Re-login complete. Resuming collection...\n")
 
     # sort all articles by ID descending (newest first)
