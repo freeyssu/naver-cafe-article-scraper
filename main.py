@@ -128,14 +128,13 @@ def do_list_menus() -> None:
         )
     )
     print(
-        "  {:<6} {:<28} {}".format("ID", "Name", "Articles")
+        "  {:<6} {:<28}".format("ID", "Name")
     )
     print(
-        "  {:<6} {:<28} {}".format("-" * 4, "-" * 28, "-" * 7)
+        "  {:<6} {:<28}".format("-" * 4, "-" * 28)
     )
     for m in menus:
-        count_str = "{:,}".format(m.article_count) if m.article_count else "-"
-        print("  {:<6} {:<28} {}".format(m.menu_id, m.menu_name, count_str))
+        print("  {:<6} {:<28}".format(m.menu_id, m.menu_name))
     print("")
 
 

@@ -11,7 +11,6 @@ from scraper.article_list import SessionExpired, _is_login_url
 class MenuInfo(BaseModel):
     menu_id: int
     menu_name: str
-    article_count: int = 0
 
 
 def resolve_cafe_id(session: Session, cafe_name: str) -> int:

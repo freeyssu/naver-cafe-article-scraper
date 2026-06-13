@@ -30,7 +30,7 @@
 
 ## CLI commands (subparsers)
 - `login` — manual browser login + save cookies
-- `list-menus --cafe CAFE` — list all menus with name, ID, article count
+- `list-menus --cafe CAFE` — list all menus with name and ID
 - `scrape [--cafe CAFE] [--menu-id ID] [--start-page N] [--max-pages N] [--min-delay N] [--max-delay N] [--format FMT] [--threads N]` — scrape articles
 
 ## Testing
