@@ -140,11 +140,28 @@ def do_list_menus() -> None:
 
 def do_scrape(args) -> None:
     validate_cafe_settings()
+    _print_menu_name()
     run_collection(
         max_pages=args.max_pages,
         num_threads=args.threads,
         start_page=args.start_page,
     )
+
+
+def _print_menu_name() -> None:
+    session = create_session()
+    try:
+        for menu in list_menus(session):
+            if menu.menu_id == settings.menu_id:
+                print(
+                    "Menu: {id} - {name}".format(
+                        id=menu.menu_id, name=menu.menu_name
+                    )
+                )
+                return
+        print("Menu: {id}".format(id=settings.menu_id))
+    except (SessionExpired, Exception):
+        print("Menu: {id}".format(id=settings.menu_id))
 
 
 def main():

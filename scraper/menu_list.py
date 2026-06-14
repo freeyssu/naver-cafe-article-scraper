@@ -67,4 +67,5 @@ def list_menus(session: Session) -> List[MenuInfo]:
             MenuInfo(menu_id=menu_id, menu_name=name)
         )
 
+    menus.sort(key=lambda m: m.menu_id)
     return menus
