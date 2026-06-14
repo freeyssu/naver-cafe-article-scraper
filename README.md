@@ -1,4 +1,4 @@
-# Naver Cafe Article Collector
+# Naver Cafe Article Scraper
 
 Collect Naver Cafe articles (title, content, date, author) via HTTP scraping
 with manual browser login supporting 2FA.
@@ -14,6 +14,10 @@ with manual browser login supporting 2FA.
 - **Session expiry detection** — stops and auto re-logs in when cookie expires
 - **Menu listing** — browse all boards in a cafe
 - **Auto cafe ID resolution** — no need to look up numeric cafe ID manually
+
+## Requirements
+
+- Python **3.10** or later
 
 ## Quick Start
 
@@ -76,14 +80,14 @@ python main.py scrape --cafe joonggonara --menu-id 1256 --max-pages 1 \
     --min-delay 0.5 --max-delay 1.0 --format md
 ```
 
-```markdown
+~~~markdown
 ## 1130548849, 2026-06-10 15:27, [공지] 중고차 카테고리 서비스 일시중단 및 개편안내
 
 ```
 안녕하세요, 중고나라입니다...
 ```
 ...
-```
+~~~
 
 ## CLI
 
