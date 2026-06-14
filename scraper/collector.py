@@ -153,6 +153,36 @@ def _run_collection(
         results.extend(chunk_results)
 
 
+def _resolve_total_pages() -> int:
+    session = create_session()
+    url = (
+        "https://cafe.naver.com/{cafe}/ArticleList.nhn"
+        "?search.clubid={clubid}&search.menuid={menuid}"
+        "&search.page=1&userDisplay=1".format(
+            cafe=settings.cafe_name,
+            clubid=settings.cafe_id,
+            menuid=settings.menu_id,
+        )
+    )
+    try:
+        r = session.get(
+            url,
+            headers={
+                "Referer": "https://cafe.naver.com/{cafe}/".format(
+                    cafe=settings.cafe_name
+                )
+            },
+            timeout=15,
+        )
+        m = re.search(r"totalCount=(\d+)", r.text)
+        if m:
+            total = int(m.group(1))
+            return max(1, math.ceil(total / 50))
+    except Exception:
+        pass
+    return 1
+
+
 def collect_articles(
     max_pages: int | None = None,
     num_threads: int = 1,
@@ -160,6 +190,8 @@ def collect_articles(
 ) -> List[Article]:
     if max_pages is None:
         max_pages = settings.max_pages
+    if max_pages < 1:
+        max_pages = _resolve_total_pages()
     if max_pages < 1:
         return []
 

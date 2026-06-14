@@ -48,8 +48,8 @@ def parse_args():
         help="Starting page number (default: 1)"
     )
     scrape_parser.add_argument(
-        "--max-pages", type=int, default=1,
-        help="Max pages to scrape (default: 1)"
+        "--max-pages", type=int, default=0,
+        help="Max pages to scrape (0 = all pages, default: 0)"
     )
     scrape_parser.add_argument(
         "--format", type=str, default="md",
