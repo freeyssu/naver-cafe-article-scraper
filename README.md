@@ -42,6 +42,49 @@ python main.py scrape --cafe CAFE_NAME --menu-id MENU_ID \
     --max-pages 10 --threads 10
 ```
 
+Omit `--max-pages` to scrape all pages automatically.
+
+## Formats
+
+| Format | Use case | Included fields |
+|--------|----------|-----------------|
+| JSON | Downstream apps, scripting | All fields — title, content, author, published_at, scraped_at, view_count, comment_count, url |
+| MD | Human reading | Title, author, date, full content |
+| CSV / XLSX | Spreadsheet analysis | Same as JSON, flattened |
+
+### Example (joonggonara, menu 1256)
+
+```bash
+python main.py scrape --cafe joonggonara --menu-id 1256 --max-pages 1 \
+    --min-delay 0.5 --max-delay 1.0 --format json
+```
+
+```json
+[
+  {
+    "title": "[공지] 중고차 카테고리 서비스 일시중단 및 개편안내",
+    "content": "안녕하세요, 중고나라입니다...",
+    "author": "중고나라카페스탭(jn_p****)",
+    "published_at": 1781105220000
+  },
+  ...
+]
+```
+
+```bash
+python main.py scrape --cafe joonggonara --menu-id 1256 --max-pages 1 \
+    --min-delay 0.5 --max-delay 1.0 --format md
+```
+
+```markdown
+## 1130548849, 2026-06-10 15:27, [공지] 중고차 카테고리 서비스 일시중단 및 개편안내
+
+```
+안녕하세요, 중고나라입니다...
+```
+...
+```
+
 ## CLI
 
 | Command | Description |
@@ -57,11 +100,11 @@ python main.py scrape --cafe CAFE_NAME --menu-id MENU_ID \
 | `--cafe NAME` | (from .env) | Cafe name |
 | `--menu-id ID` | (from .env) | Menu/Board ID |
 | `--start-page N` | 1 | Starting page number |
-| `--max-pages N` | 1 | Max pages to scrape |
+| `--max-pages N` | 0 (all) | Max pages to scrape (0 = all pages) |
 | `--min-delay N` | 2.0 | Min delay between requests (seconds) |
 | `--max-delay N` | 5.0 | Max delay between requests (seconds) |
 | `--threads N` | 10 | Parallel threads |
-| `--format {csv,json,xlsx,md}` | md | Output format |
+| `--format {csv,json,xlsx,md}` | md | Output format (see Formats section) |
 
 ## Config
 
@@ -70,8 +113,8 @@ Copy `.env.example` to `.env`:
 ```
 CAFE_NAME=joonggonara
 MENU_ID=335
-MAX_PAGES=50
-OUTPUT_FORMAT=md
+MAX_PAGES=0          # 0 = all pages
+OUTPUT_FORMAT=md     # csv, json, xlsx, md
 MIN_DELAY=2
 MAX_DELAY=5
 ```
